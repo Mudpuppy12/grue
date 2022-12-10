@@ -1,0 +1,4 @@
+bot.ini
+venv/
+__pycache__/
+media/
