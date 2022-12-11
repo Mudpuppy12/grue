@@ -3,19 +3,19 @@ from nextcord.ext.commands import Bot, Cog
 from nextcord import FFmpegPCMAudio
 
 class Scream(Cog):
-    def __init__(self, bot: Bot) -> None:
+    def __init__(self, bot):
         self.bot = bot
 
     @slash_command(name="scream", description="Scream")
     
-    async def scream(self, inter: Interaction):
+    async def scream(self, inter):
         source = FFmpegPCMAudio('media/WilhelmScream.wav')   
         guild_id = inter.guild_id
 
         if guild_id not in self.bot.server_sessions:
             return await inter.send(f'Bot is  not connected to any voice channel!')
 
-        session = self.bot.server_sessions[guild_id]
+        session = self.bot.server_sessions[guild_id].voice_client
     
         if session.is_connected():
             session.play(source)
@@ -27,5 +27,5 @@ class Scream(Cog):
                 )
             )
 
-def setup(bot: Bot) -> None:
+def setup(bot):
     bot.add_cog(Scream(bot))
