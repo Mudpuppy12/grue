@@ -56,9 +56,12 @@ class Audio(Cog):
 
     @slash_command(name="lplay", description="Play some local music or SFX")
     async def lplay(self, inter: Interaction, search):
-        path = "/media/" + search
-
-        search = wavelink.PartialTrack(query=path, cls=wavelink.LocalTrack)
+        path = "/media/" + search 
+        
+        try:   
+            search = await wavelink.LocalTrack.search(query=path,return_first=True)
+        except:
+            return await inter.send(f'{path} Not found!') 
 
         if inter.user.voice is None:
             return await inter.send(f'You are not connected to any voice channel!')
@@ -73,13 +76,9 @@ class Audio(Cog):
             await inter.send(f'Connected to {inter.user.voice.channel}.')
             
         vc: wavelink.Player = inter.guild.voice_client
-       
-        try: 
-           await vc.play(search)
-           await inter.send(f'Playing {search.title}')
-        except:
-           await inter.send(f'{path} Not found!') 
 
+        await vc.play(search)
+        await inter.send(f'Playing {search.title}')
 
 def setup(bot: Bot) -> None:
     bot.add_cog(Audio(bot))
