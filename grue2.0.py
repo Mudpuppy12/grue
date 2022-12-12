@@ -24,5 +24,5 @@ class Bot(commands.Bot):
         print('Bot is ready!')
         
 bot = Bot()
-bot.load_extension("cogs.music")
+bot.load_extension("cogs.audio")
 bot.run(BOT_TOKEN)

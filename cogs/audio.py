@@ -9,7 +9,7 @@ from discord.ext import commands
 config = configparser.ConfigParser()
 config.read('bot.ini')
 
-class Music(Cog):
+class Audio(Cog):
     """Music cog to hold Wavelink related commands and listeners."""
 
     def __init__(self, bot: Bot):
@@ -31,12 +31,9 @@ class Music(Cog):
         """Event fired when a node has finished connecting."""
         print(f'Node: <{node.identifier}> is ready!')
 
-
-
-    @slash_command(name="music", description="Play some music")
+    @slash_command(name="ytmusic", description="Play some music")
     async def play(self, inter: Interaction, search):
         search = await wavelink.YouTubeTrack.search(query=search,return_first=True)
-
         """Play a song with the given search query.
 
         If not connected, connect to our voice channel.
@@ -59,4 +56,4 @@ class Music(Cog):
 
 
 def setup(bot: Bot) -> None:
-    bot.add_cog(Music(bot))
+    bot.add_cog(Audio(bot))
