@@ -20,9 +20,10 @@ bot = Bot(default_guild_ids=[TEST_GUILD_ID])
 bot.server_sessions={}
 
 # Load the slash commands
+
 bot.load_extension("cogs.ping")
 bot.load_extension("cogs.join")
-bot.load_extension("cogs.scream")
+bot.load_extension("cogs.yt")
 
 @bot.event
 async def on_ready():
