@@ -31,17 +31,32 @@ class Music(Cog):
         """Event fired when a node has finished connecting."""
         print(f'Node: <{node.identifier}> is ready!')
 
-    @commands.command()
-    async def play(self, ctx: commands.Context, *, search: wavelink.YouTubeTrack):
+
+
+    @slash_command(name="music", description="Play some music")
+    async def play(self, inter: Interaction, search):
+        search = await wavelink.YouTubeTrack.search(query=search,return_first=True)
+
         """Play a song with the given search query.
 
         If not connected, connect to our voice channel.
         """
-        if not ctx.voice_client:
-            vc: wavelink.Player = await ctx.author.voice.channel.connect(cls=wavelink.Player)
+        if inter.user.voice is None:
+            return await inter.send(f'You are not connected to any voice channel!')
+
+        # If the bot isn't in a voice channel
+        if not inter.guild.voice_client:
+            vc: wavelink.Player = await inter.user.voice.channel.connect(cls=wavelink.Player)
         else:
-            vc: wavelink.Player = ctx.voice_client
+          #See if the bot is in another channel
+          if inter.guild.voice_client.channel != inter.user.voice.channel:
+            await inter.guild.voice_client.move_to(inter.user.voice.channel) 
+            await inter.send(f'Connected to {inter.user.voice.channel}.')
+            
+        vc: wavelink.Player = inter.guild.voice_client
         await vc.play(search)
+        await inter.send(f'Playing {search.title}')
+
 
 def setup(bot: Bot) -> None:
     bot.add_cog(Music(bot))
