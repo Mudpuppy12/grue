@@ -9,4 +9,5 @@ services:
     restart: unless-stopped
     volumes:
       - ./application.yml:/opt/Lavalink/application.yml:ro
+      - ./media:/media
 
