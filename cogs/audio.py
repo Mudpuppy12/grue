@@ -79,6 +79,31 @@ class Audio(Cog):
 
         await vc.play(search)
         await inter.send(f'Playing {search.title}')
+  
+    @slash_command(name="apause", description="Pause bot audio output.")
+    async def apause(self, inter: Interaction):
+       vc = inter.guild.voice_client
+       if vc:
+           if vc.is_playing() and not vc.is_paused():
+               await vc.pause()
+               await inter.send("Audio stopped/paused.")
+           else:
+               await inter.send("Nothing is playing.")
+       else:
+           await inter.send("The bot is not connected to a voice channel")
+   
+    @slash_command(name="aresume", description="Resume bot audio output.")
+    async def aresume(self, inter: Interaction):
+       vc = inter.guild.voice_client
+      
+       if vc:
+           if vc.is_paused():
+              await vc.resume()
+              await inter.send("Audio resumed.")
+           else:
+              await inter.send("Nothing is paused.")
+       else:
+          await inter.send("The bot is not connected to a voice channel")
 
 def setup(bot: Bot) -> None:
     bot.add_cog(Audio(bot))
