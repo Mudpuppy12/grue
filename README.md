@@ -11,7 +11,6 @@ start the bot.
 * Ping Cog
 * Audio Cog
 
-
 # Audio Cog (Commands)
 * /lplay <file> - Play a local media file.
 * /ytmusic <search> - Play audio from Youtube video.
@@ -19,6 +18,10 @@ start the bot.
 * /resume - Resume a paused audio output.
 * /disconnect - Disconnect the bot from a voice channel.
 * /volume <[0-100]> - Set volume for audio output.
+
+# Files Cog (Commands)
+* /upload <file> - Upload a file to the bot.
+
 
 
 # Ping Cog (Commands)
