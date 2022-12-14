@@ -17,7 +17,7 @@ start the bot.
 * /ytmusic <search> - Play audio from Youtube video.
 * /pause - Pause or stop audio output.
 * /resume - Resume a paused audio output.
-* /disconnnect - Disconnect the bot from a voice channel.
+* /disconnect - Disconnect the bot from a voice channel.
 
 # Ping Cog (Commands)
 * /ping - Basic bot command to see if bot is responsive.
@@ -38,6 +38,6 @@ PUBLIC_KEY = Your Bot Public Key
 
 HOST= localhost
 PORT= 6969
-PASSWORD = <Your Password>
+PASSWORD = <YOUR CONFIG PASSWORD>
 HTTPS = false
 ```
