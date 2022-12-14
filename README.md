@@ -18,6 +18,8 @@ start the bot.
 * /pause - Pause or stop audio output.
 * /resume - Resume a paused audio output.
 * /disconnect - Disconnect the bot from a voice channel.
+* /volume <[0-100]> - Set volume for audio output.
+
 
 # Ping Cog (Commands)
 * /ping - Basic bot command to see if bot is responsive.
