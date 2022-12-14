@@ -33,7 +33,8 @@ class Audio(Cog):
 
     @slash_command(name="ytmusic", description="Play some music from Youtube")
     async def play(self, inter: Interaction, search):
-        
+        """ Play music from Youtube. """
+
         search = await wavelink.YouTubeTrack.search(query=search,return_first=True)
         if inter.user.voice is None:
             return await inter.send(f'You are not connected to any voice channel!')
@@ -53,8 +54,9 @@ class Audio(Cog):
 
     @slash_command(name="lplay", description="Play some local music or SFX")
     async def lplay(self, inter: Interaction, search):
+        """ Play a local file in the lavalink /media volume """
+
         path = "/media/" + search 
-        
         try:   
             search = await wavelink.LocalTrack.search(query=path,return_first=True)
         except:
@@ -79,6 +81,8 @@ class Audio(Cog):
   
     @slash_command(name="pause", description="Pause bot audio output.")
     async def pause(self, inter: Interaction):
+       """ Pause audio output of Bot """
+        
        vc = inter.guild.voice_client
        if vc:
            if vc.is_playing() and not vc.is_paused():
@@ -91,6 +95,8 @@ class Audio(Cog):
    
     @slash_command(name="resume", description="Resume bot audio output.")
     async def resume(self, inter: Interaction):
+       """ Resume audio playback from bot."""
+
        vc = inter.guild.voice_client
        if vc:
            if vc.is_paused():
@@ -103,6 +109,8 @@ class Audio(Cog):
 
     @slash_command(name="disconnect", description="Disconnect Grue from a voice channel")
     async def disconnect(self, inter): 
+       """ Disconnect bot from a voice channel. """
+
        vc = inter.guild.voice_client
        if vc:
           await vc.disconnect()
