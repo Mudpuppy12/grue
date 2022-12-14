@@ -79,6 +79,16 @@ class Audio(Cog):
         await vc.play(search)
         await inter.send(f'Playing {search.title}')
   
+    @slash_command(name="volume", description="Pause bot audio output.")
+    async def volume(self, inter: Interaction, volume : int):
+        """ Change bot output volume """
+        vc = inter.guild.voice_client
+        if vc:
+         await vc.set_volume(volume)
+         await inter.send(f"Volume changed to {volume}")
+        else:
+            await inter.send(f"Grue isn't connected to a voice channel.")
+
     @slash_command(name="pause", description="Pause bot audio output.")
     async def pause(self, inter: Interaction):
        """ Pause audio output of Bot """
