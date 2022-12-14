@@ -33,11 +33,8 @@ class Audio(Cog):
 
     @slash_command(name="ytmusic", description="Play some music from Youtube")
     async def play(self, inter: Interaction, search):
+        
         search = await wavelink.YouTubeTrack.search(query=search,return_first=True)
-        """Play a song with the given search query.
-
-        If not connected, connect to our voice channel.
-        """
         if inter.user.voice is None:
             return await inter.send(f'You are not connected to any voice channel!')
 
@@ -80,8 +77,8 @@ class Audio(Cog):
         await vc.play(search)
         await inter.send(f'Playing {search.title}')
   
-    @slash_command(name="apause", description="Pause bot audio output.")
-    async def apause(self, inter: Interaction):
+    @slash_command(name="pause", description="Pause bot audio output.")
+    async def pause(self, inter: Interaction):
        vc = inter.guild.voice_client
        if vc:
            if vc.is_playing() and not vc.is_paused():
@@ -92,10 +89,9 @@ class Audio(Cog):
        else:
            await inter.send("The bot is not connected to a voice channel")
    
-    @slash_command(name="aresume", description="Resume bot audio output.")
-    async def aresume(self, inter: Interaction):
+    @slash_command(name="resume", description="Resume bot audio output.")
+    async def resume(self, inter: Interaction):
        vc = inter.guild.voice_client
-      
        if vc:
            if vc.is_paused():
               await vc.resume()
@@ -104,6 +100,15 @@ class Audio(Cog):
               await inter.send("Nothing is paused.")
        else:
           await inter.send("The bot is not connected to a voice channel")
+
+    @slash_command(name="disconnect", description="Disconnect Grue from a voice channel")
+    async def disconnect(self, inter): 
+       vc = inter.guild.voice_client
+       if vc:
+          await vc.disconnect()
+          await inter.send("Grue has left the channel.")
+       else:
+          await inter.send("Grue is not in a voice channel.")
 
 def setup(bot: Bot) -> None:
     bot.add_cog(Audio(bot))

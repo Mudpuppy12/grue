@@ -25,4 +25,5 @@ class Bot(commands.Bot):
         
 bot = Bot()
 bot.load_extension("cogs.audio")
+bot.load_extension("cogs.ping")
 bot.run(BOT_TOKEN)
