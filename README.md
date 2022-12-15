@@ -1,5 +1,5 @@
 # grue
-Discord Bot for OSE and OSR games. Currently under construction.
+Discord Bot for RPG games. Currently under construction.
 
 # Setup
 Add a bot.ini file (See below) and startup the lavalink container. Then
@@ -22,6 +22,8 @@ start the bot.
 # Files Cog (Commands)
 * /upload <file> - Upload a file to the bot.
 
+# OpenAI (Commands)
+* /openai-image <desc> - Generate an imaged based of description using DAL-E openAI.
 
 
 # Ping Cog (Commands)
