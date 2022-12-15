@@ -24,6 +24,7 @@ start the bot.
 
 # OpenAI (Commands)
 * /openai-image <desc> - Generate an imaged based of description using DAL-E openAI.
+* /openai-story <desc> - Generate a text story off a few key descriptors.
 
 
 # Ping Cog (Commands)
