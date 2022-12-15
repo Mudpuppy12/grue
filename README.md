@@ -1,5 +1,5 @@
 # grue
-Discord Bot for RPG games. Currently under construction.
+Discord Bot for RPGgames. Currently under construction.
 
 # Setup
 Add a bot.ini file (See below) and startup the lavalink container. Then
@@ -42,9 +42,11 @@ PUBLIC_KEY = Your Bot Public Key
 
 [LAVALINK]
 # Default from configuration.yml
-
 HOST= localhost
 PORT= 6969
 PASSWORD = <YOUR CONFIG PASSWORD>
 HTTPS = false
+
+[OPENAI]
+API_KEY = YOUR API KEY
 ```
