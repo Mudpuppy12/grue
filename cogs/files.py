@@ -9,17 +9,15 @@ class Files(Cog):
 
     @slash_command(name="upload", description="Upload a file.")
     async def upload(self, inter: Interaction, file: Attachment) -> None:
+        path = "uploads/" + str(inter.user.id) + "/"     
         await inter.send(f"Uploading...")
-
-        path = "uploads/" + str(inter.user.id) + "/"
-
+        
         # Create a directory to store user uploads
         if not os.path.exists(path):
             os.mkdir(path)
 
         await file.save(path + file.filename)
         await inter.send(f"Upload complete.")
-
 
 def setup(bot: Bot) -> None:
     bot.add_cog(Files(bot))
