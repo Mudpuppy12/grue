@@ -22,7 +22,6 @@ class OpenAI(Cog):
         
         path =  "uploads/" + str(inter.user.id) + "/"
         filename = datetime.datetime.now().strftime("%y%m%d_%H%M%S") + ".png"
-   
 
         response = openai.Image.create( prompt=desc,n=1,size="1024x1024")
         image_url = response['data'][0]['url']
@@ -38,5 +37,17 @@ class OpenAI(Cog):
 
         await inter.send(f"{image_url}")
 
+    @slash_command(name="openai-story", description="OpenAI test story generation.")
+    async def openai_story(self, inter: Interaction, prompt: str) -> None:
+        openai.api_key = config['OPENAI']['API_KEY']
+
+        await inter.send(f"Generating content base on {prompt}.")
+
+        response = openai.Completion.create(model="text-davinci-001",prompt=prompt,
+                                            temperature=0.4, max_tokens=1024,top_p=1,
+                                            frequency_penalty=0,presence_penalty=0
+        )
+        await inter.send(f"{response['choices'][0].text}")
+    
 def setup(bot: Bot) -> None:
     bot.add_cog(OpenAI(bot))
