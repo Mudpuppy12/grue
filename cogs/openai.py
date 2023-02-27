@@ -1,5 +1,5 @@
-from nextcord import Interaction, slash_command
-from nextcord.ext.commands import Bot, Cog
+from discord import app_commands, Interaction
+from discord.ext import commands
 import openai
 import configparser
 import requests
@@ -11,14 +11,14 @@ import datetime
 config = configparser.ConfigParser()
 config.read('bot.ini')
 
-class OpenAI(Cog):
-    def __init__(self, bot: Bot) -> None:
+class OpenAI(commands.Cog):
+    def __init__(self, bot):
         self.bot = bot
 
-    @slash_command(name="openai-image", description="Create an image.")
-    async def openai_image(self, inter: Interaction, desc : str) -> None:
+    @app_commands.command(name="openai-image", description="Create an image.")
+    async def openai_image(self, inter: Interaction, desc : str):
         openai.api_key = config['OPENAI']['API_KEY']
-        await inter.send(f"Generating imaged from {desc}.")
+        await inter.response.send_message(f"Generating imaged from {desc}.")
         
         path =  "uploads/" + str(inter.user.id) + "/"
         filename = datetime.datetime.now().strftime("%y%m%d_%H%M%S") + ".png"
@@ -35,19 +35,19 @@ class OpenAI(Cog):
         with open(path + filename, 'wb') as handler:
            handler.write(img_data)
 
-        await inter.send(f"{image_url}")
+        await inter.followup.send(f"{image_url}")
 
-    @slash_command(name="openai-story", description="OpenAI test story generation.")
-    async def openai_story(self, inter: Interaction, prompt: str) -> None:
+    @app_commands.command(name="openai-story", description="OpenAI test story generation.")
+    async def openai_story(self, inter: Interaction, prompt: str):
         openai.api_key = config['OPENAI']['API_KEY']
 
-        await inter.send(f"Generating content base on {prompt}.")
+        await inter.response.send_message(f"Generating content base on {prompt}.")
 
         response = openai.Completion.create(model="text-davinci-001",prompt=prompt,
                                             temperature=0.4, max_tokens=1024,top_p=1,
                                             frequency_penalty=0,presence_penalty=0
         )
-        await inter.send(f"{response['choices'][0].text}")
+        await inter.followup.send(f"{response['choices'][0].text}")
     
-def setup(bot: Bot) -> None:
-    bot.add_cog(OpenAI(bot))
+async def setup(bot):
+    await bot.add_cog(OpenAI(bot))

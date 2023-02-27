@@ -5,9 +5,9 @@ class Ping(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="ping", description="A simple ping command.")
+    @app_commands.command(name="ping", description="Pings with time.")
     async def ping(self, inter):
         await inter.response.send_message(f"Pong! {self.bot.latency * 1000:.2f}ms")
-
+        
 async def setup(bot):
     await bot.add_cog(Ping(bot))

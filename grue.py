@@ -5,6 +5,8 @@ import configparser
 import discord
 import asyncio
 from discord.ext import commands
+import os
+
 
 
 # Load the config file
@@ -34,14 +36,11 @@ async def load_extensions():
 
 async def main():
     async with client:
-        #await load_extensions()
-        await client.load_extension("cogs.audio")
-        await client.load_extension("cogs.ping")
-        await client.load_extension("cogs.files")
+        await load_extensions()
         await client.start(BOT_TOKEN)
 
 client = Bot()
 asyncio.run(main())          
 
-#await bot.load_extension("cogs.openai")
-#await bot.run(BOT_TOKEN)
+
+

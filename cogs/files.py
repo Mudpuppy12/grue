@@ -17,7 +17,7 @@ class Files(commands.Cog):
             os.mkdir(path)
 
         await file.save(path + file.filename)
-        await inter.response.send_message(f"Upload complete.")
+        await inter.followup.send(f"Upload complete.")
 
 async def setup(bot):
     await bot.add_cog(Files(bot))
