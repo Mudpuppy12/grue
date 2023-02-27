@@ -94,11 +94,8 @@ class Audio(commands.Cog):
         
        vc = inter.guild.voice_client
        if vc:
-           if vc.is_playing():
-               await vc.pause()
-               await inter.response.send_message("Audio stopped/paused.")
-           else:
-               await inter.response.send_message("Nothing is playing.")
+            await vc.pause()
+            await inter.response.send_message("Audio stopped/paused.")
        else:
            await inter.response.send_message("The bot is not connected to a voice channel")
    
