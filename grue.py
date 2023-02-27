@@ -36,13 +36,12 @@ async def main():
     async with client:
         #await load_extensions()
         await client.load_extension("cogs.audio")
+        await client.load_extension("cogs.ping")
+        await client.load_extension("cogs.files")
         await client.start(BOT_TOKEN)
 
 client = Bot()
 asyncio.run(main())          
 
-#await bot.load_extension("cogs.audio")
-#await bot.load_extension("cogs.ping")
-#await bot.load_extension("cogs.files")
 #await bot.load_extension("cogs.openai")
 #await bot.run(BOT_TOKEN)
