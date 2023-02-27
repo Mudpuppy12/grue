@@ -1,5 +1,6 @@
 # grue
-Discord Bot for RPGgames. Currently under construction.
+Discord Bot for RPGgames. Currently under construction. Removed nextcord
+dependancies and now uses discord.py
 
 # Setup
 Add a bot.ini file (See below) and startup the lavalink container. Then
