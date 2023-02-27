@@ -46,7 +46,6 @@ class Audio(commands.Cog):
           #See if the bot is in another channel
           if inter.guild.voice_client.channel != inter.user.voice.channel:
             await inter.guild.voice_client.move_to(inter.user.voice.channel) 
-            await inter.response.send_message(f'Connected to {inter.user.voice.channel}.')
             
         vc: wavelink.Player = inter.guild.voice_client
         await vc.play(search)
@@ -95,7 +94,7 @@ class Audio(commands.Cog):
         
        vc = inter.guild.voice_client
        if vc:
-           if vc.is_playing() and not vc.is_paused():
+           if vc.is_playing():
                await vc.pause()
                await inter.response.send_message("Audio stopped/paused.")
            else:
