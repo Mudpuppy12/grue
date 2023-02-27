@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
+# Dropped nextcord switching to discord.py
+
 import configparser
-import wavelink
 import discord
+import asyncio
 from discord.ext import commands
+
 
 # Load the config file
 config = configparser.ConfigParser()
@@ -22,10 +25,24 @@ class Bot(commands.Bot):
                          )
     async def on_ready(self):
         print('Bot is ready!')
-        
-bot = Bot()
-bot.load_extension("cogs.audio")
-bot.load_extension("cogs.ping")
-bot.load_extension("cogs.files")
-bot.load_extension("cogs.openai")
-bot.run(BOT_TOKEN)
+
+async def load_extensions():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            # cut off the .py from the file name
+            await client.load_extension(f"cogs.{filename[:-3]}")
+
+async def main():
+    async with client:
+        #await load_extensions()
+        await client.load_extension("cogs.audio")
+        await client.start(BOT_TOKEN)
+
+client = Bot()
+asyncio.run(main())          
+
+#await bot.load_extension("cogs.audio")
+#await bot.load_extension("cogs.ping")
+#await bot.load_extension("cogs.files")
+#await bot.load_extension("cogs.openai")
+#await bot.run(BOT_TOKEN)
